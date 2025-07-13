@@ -8,7 +8,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     environment:
-      - MONGO_URL=mongodb+srv://grupo2:tpa2025@birbnb.j2iy45j.mongodb.net/birbnb?retryWrites=true&w=majority
+      - MONGO_URL=${MONGO_URL}
     depends_on:
       - frontend
 
