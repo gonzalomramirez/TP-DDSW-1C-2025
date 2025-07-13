@@ -1,0 +1,51 @@
+.fondo-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1300;
+    padding: 24px;
+}
+
+.titulo-modal {
+    text-align: center;
+    padding: 12px;
+}
+
+.contenido-modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    width: 90vw;
+    max-width: 1000px !important;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.separador {
+    margin: 16px 0;
+}
+
+.formulario-campos {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-bottom: 24px;
+}
+
+.bloque-campos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.botones-accion {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.subtipos {
+    text-align: center;
+}

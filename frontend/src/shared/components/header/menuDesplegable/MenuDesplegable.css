@@ -1,0 +1,29 @@
+.menu-desplegable-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-personalizado {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    padding: 10px 0;
+    min-width: 200px;
+    z-index: 999;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem; /* ≈16px */
+}
+
+.menu-item {
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,12 @@
+.mis-reservas-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.reservas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 60px;
+    justify-content: center;
+}

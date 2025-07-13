@@ -1,0 +1,32 @@
+.search-bar-container {
+    background-color: white;
+    border-radius: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 900px;
+    margin: auto;
+    gap: 15px;
+}
+
+.search-field {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+}
+
+.divider {
+    height: 40px;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.search-button {
+    background-color: #ff385c !important;
+    color: white !important;
+    margin-left: 10px;
+}
+
+.search-button:hover {
+    background-color: #e11d48 !important;
+}

@@ -1,0 +1,9 @@
+.loader-container {
+    min-height: 50vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    padding: 2rem 0;
+    gap: 1rem;
+}

@@ -1,0 +1,37 @@
+.sidebar-filtros .ubicacion,
+.sidebar-filtros .direccion {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.sidebar-filtros .direccion {
+    margin-top: 8px;
+}
+
+.sidebar-filtros .slider-labels {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-filtros .campo-autocomplete {
+    margin-bottom: 8px;
+}
+
+.sidebar-filtros .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.sidebar-filtros .buscar-button {
+    margin-top: 12px;
+}
+
+@media (max-width: 480px) {
+    .sidebar-filtros .ubicacion,
+    .sidebar-filtros .direccion {
+        gap: 4px;
+    }
+}

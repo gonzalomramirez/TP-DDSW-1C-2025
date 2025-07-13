@@ -1,0 +1,40 @@
+{
+  "name": "2025-1c-tp-grupo-2",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "- Ramiro Nahuel Barrios (208.428-4)\r - Gonzalo Martín Ramirez (209.630-4)\r - Tomás Angel Rios (209.163-0)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "dev": "nodemon src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddsw-mn/2025-1c-tp-grupo-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ddsw-mn/2025-1c-tp-grupo-2/issues"
+  },
+  "homepage": "https://github.com/ddsw-mn/2025-1c-tp-grupo-2#readme",
+  "dependencies": {
+    "@jest/globals": "^29.7.0",
+    "agenda": "^5.0.0",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "mongodb-memory-server": "^10.1.4",
+    "mongoose": "^8.15.0",
+    "node-cron": "^4.1.1",
+    "supertest": "^7.1.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Birbnb",
+    "version": "1.0.1",
+    "description": "Documentación de la API para reservas, alojamientos y usuarios"
+  },
+  "servers": [
+    { "url": "http://localhost:4000" }
+  ],
+  "paths": {
+    "/healthcheck": {
+      "get": {
+        "summary": "Verifica el estado del sistema",
+        "tags": ["Sistema"],
+        "responses": {
+          "200": {
+            "description": "Sistema funcionando correctamente"
+          }
+        }
+      }
+    },
+    "/alojamientos": {
+      "get": {
+        "summary": "Listar o filtrar alojamientos",
+        "tags": ["Alojamiento"],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer" }, "description": "Número de página" },
+          { "name": "pageSize", "in": "query", "schema": { "type": "integer" }, "description": "Tamaño de página" },
+          { "name": "minPrecio", "in": "query", "schema": { "type": "number" }, "description": "Precio mínimo" },
+          { "name": "maxPrecio", "in": "query", "schema": { "type": "number" }, "description": "Precio máximo" },
+          { "name": "moneda", "in": "query", "schema": { "type": "string" }, "description": "Moneda del precio" },
+          { "name": "cantidadHuespedes", "in": "query", "schema": { "type": "integer" }, "description": "Cantidad de huéspedes" },
+          { "name": "caracteristicas", "in": "query", "schema": { "type": "string" }, "description": "Características separadas por coma (ej: WIFI,PISCINA)" },
+          { "name": "ciudad", "in": "query", "schema": { "type": "string" }, "description": "Nombre de la ciudad" },
+          { "name": "pais", "in": "query", "schema": { "type": "string" }, "description": "Nombre del país" },
+          { "name": "calle", "in": "query", "schema": { "type": "string" }, "description": "Nombre de la calle" },
+          { "name": "altura", "in": "query", "schema": { "type": "integer" }, "description": "Altura de la calle" },
+          { "name": "fechaCheckIn", "in": "query", "schema": { "type": "string", "format": "date" }, "description": "Fecha de ingreso (YYYY-MM-DD)" },
+          { "name": "fechaCheckOut", "in": "query", "schema": { "type": "string", "format": "date" }, "description": "Fecha de egreso (YYYY-MM-DD)" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de alojamientos (posiblemente filtrado)"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar nuevo alojamiento",
+        "tags": ["Alojamiento"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "anfitrion": { "type": "string" },
+                  "nombre": { "type": "string" },
+                  "descripcion": { "type": "string" },
+                  "precioPorNoche": { "type": "number" },
+                  "moneda": { "type": "string" },
+                  "horarioCheckIn": { "type": "string", "example": "14:00" },
+                  "horarioCheckOut": { "type": "string", "example": "11:00" },
+                  "calle": { "type": "string" },
+                  "altura": { "type": "integer" },
+                  "nombreCiudad": { "type": "string" },
+                  "nombrePais": { "type": "string" },
+                  "lat": { "type": "number" },
+                  "long": { "type": "number" },
+                  "cantidadMaximaHuespedes": { "type": "integer" },
+                  "caracteristicas": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "fotos": {
+                    "type": "array",
+                    "items": { "type": "string", "format": "uri" }
+                  }
+                },
+                "required": [
+                  "anfitrion",
+                  "nombre",
+                  "descripcion",
+                  "precioPorNoche",
+                  "moneda",
+                  "horarioCheckIn",
+                  "horarioCheckOut",
+                  "calle",
+                  "altura",
+                  "nombreCiudad",
+                  "nombrePais",
+                  "lat",
+                  "long",
+                  "cantidadMaximaHuespedes",
+                  "caracteristicas",
+                  "fotos"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Alojamiento creado" },
+          "400": { "description": "Faltan datos para crear el alojamiento" },
+          "409": { "description": "Ya existe un alojamiento creado con ese nombre" }
+        }
+      }
+    },
+    "/reservas": {
+      "post": {
+        "summary": "Crear nueva reserva",
+        "tags": ["Reserva"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "huespedReservadorId": { "type": "string" },
+                  "alojamientoId": { "type": "string" },
+                  "fechaInicio": { "type": "string", "format": "date" },
+                  "fechaFin": { "type": "string", "format": "date" }
+                },
+                "required": ["huespedReservadorId", "alojamientoId", "fechaInicio", "fechaFin"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Reserva creada" },
+          "400": { "description": "Faltan datos para crear la reserva" },
+          "409": { "description": "La reserva ya había sido creada" }
+        }
+      },
+      "get": {
+        "summary": "Obtener todas las reservas",
+        "tags": ["Reserva"],
+        "responses": {
+          "200": { "description": "Listado de reservas" }
+        }
+      }
+    },
+    "/reservas/{id}": {
+      "get": {
+        "summary": "Obtener reserva por ID",
+        "tags": ["Reserva"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reserva encontrada" }
+        }
+      }
+    },
+    "/reservas/{id}/confirmar": {
+      "put": {
+        "summary": "Confirmar reserva",
+        "tags": ["Reserva"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reserva confirmada" },
+          "400": { "description": "Faltan datos" }
+        }
+      }
+    },
+    "/reservas/{id}/cancelar": {
+      "put": {
+        "summary": "Cancelar reserva a un alojamiento",
+        "tags": ["Reserva"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "usuarioId",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "motivo": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reserva cancelada" },
+          "400": { "description": "Faltan datos" },
+          "404": { "description": "Reserva no encontrada" }
+        }
+      }
+    },
+    "/reservas/{id}/rechazar": {
+      "put": {
+        "summary": "Rechazar reserva de un usuario",
+        "tags": ["Reserva"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID de la reserva a rechazar",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "motivo": {
+                    "type": "string",
+                    "description": "Motivo del rechazo"
+                  }
+                },
+                "required": ["motivo"]
+              },
+              "example": {
+                "motivo": "El alojamiento no está disponible en esa fecha"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reserva rechazada con éxito"
+          },
+          "400": {
+            "description": "Motivo faltante o formato inválido"
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          }
+        }
+      }
+    },
+
+    "/reservas/{id}/modificar": {
+      "put": {
+        "summary": "Modificar reserva",
+        "tags": ["Reserva"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reserva modificada" },
+          "400": { "description": "Faltan datos" },
+          "404": { "description": "Reserva no encontrada" },
+          "409": { "description": "No se puede modificar una reserva cancelada" }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nuevaFechaInicio": { "type": "string", "format": "date" },
+                  "nuevaFechaFin": { "type": "string", "format": "date" }
+                },
+                "required": ["nuevaFechaInicio", "nuevaFechaFin"]
+              }
+            }
+          }
+        }
+
+      }
+    },
+    "/usuarios": {
+      "get": {
+        "summary": "Listar usuarios",
+        "tags": ["Usuario"],
+        "responses": {
+          "200": { "description": "Lista de usuarios" }
+        }
+      },
+      "post": {
+        "summary": "Registrar nuevo usuario",
+        "tags": ["Usuario"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "email": { "type": "string" },
+                  "tipo": { "type":  "string"}
+                },
+                "required": ["nombre", "email", "tipo"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Usuario creado" },
+          "400": { "description": "Nombre y/o email son requeridos" },
+          "409": { "description": "Ya existe un usuario con ese mail" }
+        }
+      }
+    },
+    "/usuarios/{id}/reservas": {
+      "get": {
+        "summary": "Reservas de un usuario",
+        "tags": ["Usuario"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Reservas del usuario" },
+          "400": { "description": "El usuario no existe" }
+        }
+      }
+    },
+    "/usuarios/{usuarioId}/notificaciones": {
+      "get": {
+        "summary": "Obtener todas las notificaciones de un usuario",
+        "tags": ["Usuario"],
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de notificaciones del usuario"
+          },
+          "404": {
+            "description": "No se encontraron notificaciones"
+          }
+        }
+      }
+    },
+    "/usuarios/{usuarioId}/notificaciones/leidas": {
+      "get": {
+        "summary": "Obtener notificaciones leídas de un usuario",
+        "tags": ["Usuario"],
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificaciones leídas"
+          },
+          "400": {
+            "description": "El ID del usuario es obligatorio"
+          },
+          "404": {
+            "description": "No se encontraron notificaciones"
+          }
+        }
+      }
+    },
+    "/usuarios/{usuarioId}/notificaciones/sin-leer": {
+      "get": {
+        "summary": "Obtener notificaciones no leídas de un usuario",
+        "tags": ["Usuario"],
+        "parameters": [
+          {
+            "name": "usuarioId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificaciones no leídas"
+          },
+          "400": {
+            "description": "El ID del usuario es obligatorio"
+          },
+          "404": {
+            "description": "No se encontraron notificaciones"
+          }
+        }
+      }
+    },
+
+    "/notificaciones": {
+      "get": {
+        "summary": "Listar todas las notificaciones",
+        "tags": ["Notificación"],
+        "responses": {
+          "200": { "description": "Lista de notificaciones" }
+        }
+      }
+    },
+    "/notificaciones/{id}": {
+      "get": {
+        "summary": "Obtener notificación por ID",
+        "tags": ["Notificación"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Notificación encontrada" },
+          "404": { "description": "Notificacion no encontrada" }
+        }
+      }
+    },
+    "/notificaciones/{id}/marcar-leida": {
+      "put": {
+        "summary": "Marcar una notificación como leída",
+        "tags": ["Notificación"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Notificación marcada como leída" },
+          "404": { "description": "Notificación no encontrada" }
+        }
+      }
+    }
+  }
+}

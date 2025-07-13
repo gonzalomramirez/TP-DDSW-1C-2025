@@ -1,0 +1,126 @@
+.tarjeta-alojamiento {
+    width: 100%;
+    max-width: 350px;
+    min-width: 350px;
+    margin: 16px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tarjeta-alojamiento:hover {
+    transform: translateY(-4px);
+}
+
+.card-imagen {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+}
+
+.boton-anfitrion.MuiButton-root {
+    background-color: #dddddd;
+    color: #333333;
+    border-radius: 36px;
+    font-weight: bold;
+    padding: 10px 24px;
+    transition: background-color 0.2s ease;
+}
+
+.boton-redirigir.MuiButton-root {
+    background-color: #dddddd;
+    color: #333333;
+    border-radius: 36px;
+    font-weight: bold;
+    padding: 10px 24px;
+    transition: background-color 0.2s ease;
+}
+
+.boton-anfitrion.MuiButton-root:hover {
+    background-color: #cccccc;
+}
+
+.boton-reservar.MuiButton-root {
+    background-color: #ff5a5f;
+    color: white;
+    border-radius: 36px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-width: 220px;
+    text-align: center;
+}
+
+.boton-reservar.MuiButton-root:hover {
+    background-color: #e04b50;
+    transform: translateY(-2px);
+}
+
+.boton-reservar.MuiButton-root:active {
+    transform: translateY(0);
+}
+
+.boton-compartir {
+    background-color: #f0f0f0;
+    color: #333333;
+    border-radius: 36px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 220px;
+    text-align: center;
+}
+
+.boton-compartir:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.boton-compartir:active {
+    transform: translateY(0);
+}
+
+.grupo-botones-huesped {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .tarjeta-alojamiento {
+        max-width: 90%;
+    }
+
+    .contenedor-botones {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .boton-anfitrion.MuiButton-root,
+    .boton-reservar.MuiButton-root,
+    .boton-compartir {
+        width: 100%;
+        padding: 12px;
+        text-align: center;
+        min-width: unset;
+    }
+}
